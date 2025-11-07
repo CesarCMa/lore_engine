@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker
+docker-compose.override.yml
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-specific
+.python-version
+*.log

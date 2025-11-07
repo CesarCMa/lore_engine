@@ -7,21 +7,21 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 
 ## **PHASE 1: Project Foundation (8 tasks)**
 
-### Task 1.1: Initialize Poetry project
+### Task 1.1: Initialize Poetry project ✓ COMPLETED
 - Run `poetry init` in project root
 - Configure: name="lore-engine", version="0.1.0", description="Worldbuilding lore generation API"
 - Set Python version to "^3.13"
 
-### Task 1.2: Add core dependencies
+### Task 1.2: Add core dependencies ✓ COMPLETED
 - Run `poetry add fastapi uvicorn[standard] python-dotenv pydantic-settings`
 - Run `poetry add langchain langchain-openai openai`
 - Run `poetry add mcp httpx`
 
-### Task 1.3: Add development dependencies
+### Task 1.3: Add development dependencies ✓ COMPLETED
 - Run `poetry add --group dev ruff pytest pytest-asyncio pytest-cov httpx`
 - Run `poetry add --group dev pre-commit`
 
-### Task 1.4: Create project directory structure
+### Task 1.4: Create project directory structure ✓ COMPLETED
 - Create `src/lore_engine/` (main package)
 - Create `src/lore_engine/api/` (FastAPI endpoints)
 - Create `src/lore_engine/services/` (business logic)
@@ -31,25 +31,25 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 - Create `src/lore_engine/core/` (config, logging)
 - Create `tests/` with subdirectories matching src structure
 
-### Task 1.5: Configure Ruff in pyproject.toml
+### Task 1.5: Configure Ruff in pyproject.toml ✓ COMPLETED
 - Add `[tool.ruff]` section
 - Set `line-length = 100`
 - Configure `select = ["E", "F", "I", "N", "W"]` (rules)
 - Add `exclude = [".git", "__pycache__", ".venv"]`
 
-### Task 1.6: Create .pre-commit-config.yaml
+### Task 1.6: Create .pre-commit-config.yaml ✓ COMPLETED
 - Add ruff linter hook (`ruff check --fix`)
 - Add ruff formatter hook (`ruff format`)
 - Set default_language_version to python3.13
 
-### Task 1.7: Create comprehensive .gitignore
+### Task 1.7: Create comprehensive .gitignore ✓ COMPLETED
 - Add Python patterns: `__pycache__/`, `*.py[cod]`, `.venv/`, `*.egg-info/`
 - Add env files: `.env`, `.env.local`
 - Add IDE: `.vscode/`, `.idea/`
 - Add Docker: `docker-compose.override.yml`
 - Add pytest: `.pytest_cache/`, `.coverage`
 
-### Task 1.8: Initialize project files
+### Task 1.8: Initialize project files ✓ COMPLETED
 - Create `src/lore_engine/__init__.py` (empty)
 - Create `src/lore_engine/__main__.py` (entry point placeholder)
 - Install pre-commit: `poetry run pre-commit install`
