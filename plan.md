@@ -58,29 +58,29 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 
 ## **PHASE 2: Core Configuration (5 tasks)**
 
-### Task 2.1: Create environment variable template
+### Task 2.1: Create environment variable template ✓ COMPLETED
 - Create `.env.example` with:
   - `OPENAI_API_KEY=your_key_here`
   - `MCP_SERVER_SCRIPT_PATH=src/lore_engine/mcp_server/server.py`
   - `LOG_LEVEL=INFO`
 
-### Task 2.2: Create settings configuration
+### Task 2.2: Create settings configuration ✓ COMPLETED
 - Create `src/lore_engine/core/config.py`
 - Define `Settings` class using `pydantic_settings.BaseSettings`
 - Add fields: `openai_api_key`, `mcp_server_script_path`, `log_level`, `openai_model` (default="gpt-4o-mini")
 - Add default for `mcp_server_script_path`: `"src/lore_engine/mcp_server/server.py"`
 - Add `model_config = SettingsConfigDict(env_file=".env")`
 
-### Task 2.3: Create settings instance
+### Task 2.3: Create settings instance ✓ COMPLETED
 - In `src/lore_engine/core/config.py`, create `settings = Settings()`
 - Export for use across app
 
-### Task 2.4: Set up logging configuration
+### Task 2.4: Set up logging configuration ✓ COMPLETED
 - Create `src/lore_engine/core/logging.py`
 - Configure `logging.basicConfig()` with format, level from settings
 - Create logger instance: `logger = logging.getLogger("lore_engine")`
 
-### Task 2.5: Create core __init__.py
+### Task 2.5: Create core __init__.py ✓ COMPLETED
 - Create `src/lore_engine/core/__init__.py`
 - Export `settings` and `logger` for easy imports
 
