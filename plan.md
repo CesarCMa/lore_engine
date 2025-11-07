@@ -88,41 +88,41 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 
 ## **PHASE 3: MCP Server Development (7 tasks)**
 
-### Task 3.1: Create MCP server structure
+### Task 3.1: Create MCP server structure ✓ COMPLETED
 - Create `src/lore_engine/mcp_server/__init__.py`
 - Create `src/lore_engine/mcp_server/server.py`
 - Import `FastMCP` from `mcp.server.fastmcp`
 - Import `httpx` for HTTP requests
 
-### Task 3.2: Initialize FastMCP server instance
+### Task 3.2: Initialize FastMCP server instance ✓ COMPLETED
 - In `server.py`, create `mcp = FastMCP("lore-engine-mcp")`
 - Add basic server configuration
 
-### Task 3.3: Implement genre tool
+### Task 3.3: Implement genre tool ✓ COMPLETED
 - Create async function `fetch_genre()` in `server.py`
 - Use `httpx.AsyncClient()` to GET `https://binaryjazz.us/wp-json/genrenator/v1/genre/`
 - Parse JSON response, return genre string
 - Decorate with `@mcp.tool()` decorator
 - Add tool description: "Fetches a random genre from the Genrenator API"
 
-### Task 3.4: Implement story tool
+### Task 3.4: Implement story tool ✓ COMPLETED
 - Create async function `fetch_story()` in `server.py`
 - Use `httpx.AsyncClient()` to GET `https://binaryjazz.us/wp-json/genrenator/v1/story/`
 - Parse JSON response, return story string
 - Decorate with `@mcp.tool()` decorator
 - Add tool description: "Fetches a random story from the Genrenator API"
 
-### Task 3.5: Add error handling to tools
+### Task 3.5: Add error handling to tools ✓ COMPLETED
 - Wrap HTTP calls in try/except for `httpx.HTTPError`
 - Return descriptive error messages
 - Log errors using logger from core
 
-### Task 3.6: Create MCP server main function
+### Task 3.6: Create MCP server main function ✓ COMPLETED
 - Create `def main()` function in `server.py` (not async)
 - Use `mcp.run(transport='stdio')` to run server
 - Add proper error handling and logging
 
-### Task 3.7: Create MCP server entry point
+### Task 3.7: Create MCP server entry point ✓ COMPLETED
 - In `server.py`, add `if __name__ == "__main__":` guard at bottom
 - Call `main()` from the guard
 - Alternatively, create `src/lore_engine/mcp_server/__main__.py` that imports and runs `main()` from `server.py`
