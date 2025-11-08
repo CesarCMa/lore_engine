@@ -6,7 +6,7 @@ authors = [
     {name = "Cesar Capilla",email = "mrsequin@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10,<4.0.0"
 dependencies = [
     "fastapi (>=0.121.0,<0.122.0)",
     "uvicorn[standard] (>=0.38.0,<0.39.0)",
@@ -38,4 +38,9 @@ pytest-asyncio = "^1.2.0"
 pytest-cov = "^7.0.0"
 httpx = "^0.28.1"
 pre-commit = "^4.3.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
 

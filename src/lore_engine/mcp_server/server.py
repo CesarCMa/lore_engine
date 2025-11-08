@@ -14,8 +14,10 @@ async def fetch_genre() -> str:
             response = await client.get("https://binaryjazz.us/wp-json/genrenator/v1/genre/")
             response.raise_for_status()
             data = response.json()
-            return data.get("name", "Unknown Genre")
-    except httpx.HTTPError as e:
+            if not data:
+                raise ValueError("No genre data found")
+            return data
+    except (httpx.HTTPError, ValueError) as e:
         return f"Error fetching genre: {str(e)}"
 
 
@@ -27,8 +29,10 @@ async def fetch_story() -> str:
             response = await client.get("https://binaryjazz.us/wp-json/genrenator/v1/story/")
             response.raise_for_status()
             data = response.json()
-            return data.get("name", "Unknown Story")
-    except httpx.HTTPError as e:
+            if not data:
+                raise ValueError("No genre data found")
+            return data
+    except (httpx.HTTPError, ValueError) as e:
         return f"Error fetching story: {str(e)}"
 
 

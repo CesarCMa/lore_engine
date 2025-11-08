@@ -320,11 +320,10 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 - Add fixture `mock_lore_generator()` returning mock generator
 - Add fixture `test_client()` returning FastAPI `TestClient`
 
-### Task 7.3: Write MCP server tool tests
-- Create `tests/mcp_server/test_server.py`
-- Test `fetch_genre()` returns string
-- Test `fetch_story()` returns string
-- Mock httpx responses with `respx` library: `poetry add --group dev respx`
+### Task 7.3: Write MCP server tool tests ✓ COMPLETED
+- Create `tests/mcp_server/test_server.py` ✓
+- Test `fetch_genre()` returns string ✓
+- Test `fetch_story()` returns string ✓
 
 ### Task 7.4: Write MCP client tests
 - Create `tests/mcp_client/test_client.py`
