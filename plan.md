@@ -131,7 +131,7 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 
 ## **PHASE 4: MCP Client Development (6 tasks)**
 
-### Task 4.1: Create MCP client wrapper class
+### Task 4.1: Create MCP client wrapper class ✓ COMPLETED
 - Create `src/lore_engine/mcp_client/client.py`
 - Define `MCPClient` class
 - Import `ClientSession`, `StdioServerParameters` from `mcp`
@@ -139,33 +139,33 @@ Build a Python FastAPI backend for worldbuilding with MCP server integration, La
 - Import `AsyncExitStack` from `contextlib`
 - Add `__init__` to initialize session, exit_stack, and connection state
 
-### Task 4.2: Implement client connection logic
+### Task 4.2: Implement client connection logic ✓ COMPLETED
 - Add `async def connect(server_script_path: str)` method
-- Create `StdioServerParameters` with command="python" and args=[server_script_path]
+- Create `StdioServerParameters` with command="poetry" and args=["run", "python", "-m", server_script_path]
 - Use `AsyncExitStack` to manage stdio_client context
 - Store `ClientSession` as instance variable after initialization
 - Call `await session.initialize()`
 - Add connection error handling and logging
 
-### Task 4.3: Implement tool listing method
+### Task 4.3: Implement tool listing method ✓ COMPLETED
 - Add `async def list_tools()` method to `MCPClient`
 - Call `await self.session.list_tools()`
 - Return list of available tools with names, descriptions, and input schemas
 - Add error handling and logging
 
-### Task 4.4: Implement generic tool calling method
+### Task 4.4: Implement generic tool calling method ✓ COMPLETED
 - Add `async def call_tool(tool_name: str, arguments: dict)` method to `MCPClient`
 - Call `await self.session.call_tool(tool_name, arguments)`
 - Return tool result content
 - Add error handling and logging
 
-### Task 4.5: Add cleanup and retry logic
+### Task 4.5: Add cleanup and retry logic ✓ COMPLETED
 - Add `async def cleanup()` method to close `AsyncExitStack`
-- Install `tenacity` library: `poetry add tenacity`
-- Decorate connection method with `@retry(stop=stop_after_attempt(3), wait=wait_exponential())`
+- Install `tenacity` library: `poetry add tenacity` ✓
+- Decorate connection method with `@retry(stop=stop_after_attempt(3), wait=wait_exponential())` ✓
 - Handle connection failures gracefully
 
-### Task 4.6: Create client factory function
+### Task 4.6: Create client factory function ✓ COMPLETED
 - Create `src/lore_engine/mcp_client/__init__.py`
 - Add `async def get_mcp_client(server_script_path: str)` factory function
 - Create `MCPClient` instance, call `connect()`, return connected instance
