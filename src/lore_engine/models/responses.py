@@ -1,6 +1,8 @@
 """Response models for the Lore Engine API."""
 
-from pydantic import BaseModel, Field
+from typing import Any
+
+from pydantic import BaseModel, Field, field_validator
 
 
 class FactionResponse(BaseModel):
@@ -18,11 +20,42 @@ class FactionsResponse(BaseModel):
     factions: list[FactionResponse] = Field(..., description="List of generated factions")
 
 
+class NPC(BaseModel):
+    """Model for an NPC in a quest."""
+
+    name: str = Field(..., description="The NPC's name")
+    role: str = Field(..., description="The NPC's role in the quest")
+    description: str | None = Field(None, description="Additional description of the NPC")
+
+
 class QuestResponse(BaseModel):
     """Response model for a quest."""
 
     title: str = Field(..., description="The quest title")
     quest_brief: str = Field(..., description="Brief description of the quest")
-    npcs: str = Field(..., description="Key NPCs involved in the quest")
+    npcs: list[NPC] | str = Field(..., description="Key NPCs involved in the quest")
     conflict: str = Field(..., description="The main conflict or challenge")
     location: str = Field(..., description="Where the quest takes place")
+
+    @field_validator("npcs", mode="before")
+    @classmethod
+    def validate_npcs(cls, v: Any) -> list[NPC] | str:
+        """Convert NPCs to proper format if needed."""
+        if isinstance(v, str):
+            # If it's a string, return as-is
+            return v
+        elif isinstance(v, list):
+            # If it's a list, validate each item
+            npcs = []
+            for npc in v:
+                if isinstance(npc, dict):
+                    npcs.append(NPC(**npc))
+                elif isinstance(npc, NPC):
+                    npcs.append(npc)
+                else:
+                    # If we can't parse it, convert to string
+                    return str(v)
+            return npcs
+        else:
+            # Convert anything else to string
+            return str(v)

@@ -40,10 +40,10 @@ class LoreGenerator:
         langchain_tools = []
 
         for tool in mcp_tools:
-            tool_name = tool.name
-            tool_description = tool.description or f"Tool: {tool_name}"
+            tool_name = tool["name"]
+            tool_description = tool.get("description") or f"Tool: {tool_name}"
 
-            input_schema = tool.inputSchema
+            input_schema = tool.get("inputSchema")
 
             if input_schema and "properties" in input_schema:
                 fields = {}
@@ -184,7 +184,7 @@ Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "
         ]
         llm_with_tools = self.llm.bind_tools(langchain_tools)
 
-        max_iterations = 5
+        max_iterations = 10
         for iteration in range(max_iterations):
             logger.debug(f"LLM invocation iteration {iteration + 1}")
             response = await llm_with_tools.ainvoke(messages)
@@ -194,16 +194,33 @@ Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "
             if hasattr(response, "tool_calls") and response.tool_calls:
                 logger.info(f"LLM requested {len(response.tool_calls)} tool call(s)")
                 messages = await self._execute_tool_calls(messages, response.tool_calls)
+                # Continue loop to get final response after tool execution
             else:
-                logger.info("LLM returned final response")
-                break
+                # No more tool calls, this should be the final response
+                logger.info("LLM returned final response (no tool calls)")
+                if response.content:
+                    break
+                else:
+                    logger.warning("Response has no content, continuing...")
         else:
             logger.warning(f"Max iterations ({max_iterations}) reached")
 
         final_content = response.content
+        logger.info(f"Final content length: {len(final_content) if final_content else 0}")
+        logger.debug(f"Final content preview: {final_content[:500] if final_content else 'EMPTY'}")
+
+        if not final_content or not final_content.strip():
+            raise ValueError("LLM returned empty response after all iterations")
 
         try:
-            factions = json.loads(final_content)
+            # Try to extract JSON if it's wrapped in markdown code blocks
+            content_to_parse = final_content.strip()
+            if content_to_parse.startswith("```"):
+                # Extract content between ```json and ``` or ``` and ```
+                lines = content_to_parse.split("\n")
+                content_to_parse = "\n".join(lines[1:-1])  # Remove first and last lines
+
+            factions = json.loads(content_to_parse)
             if not isinstance(factions, list):
                 factions = [factions]
 
@@ -256,7 +273,7 @@ Format:
 
         llm_with_tools = self.llm.bind_tools(langchain_tools)
 
-        max_iterations = 5
+        max_iterations = 10
         for iteration in range(max_iterations):
             logger.debug(f"LLM invocation iteration {iteration + 1}")
             response = await llm_with_tools.ainvoke(messages)
@@ -266,16 +283,33 @@ Format:
             if hasattr(response, "tool_calls") and response.tool_calls:
                 logger.info(f"LLM requested {len(response.tool_calls)} tool call(s)")
                 messages = await self._execute_tool_calls(messages, response.tool_calls)
+                # Continue loop to get final response after tool execution
             else:
-                logger.info("LLM returned final response")
-                break
+                # No more tool calls, this should be the final response
+                logger.info("LLM returned final response (no tool calls)")
+                if response.content:
+                    break
+                else:
+                    logger.warning("Response has no content, continuing...")
         else:
             logger.warning(f"Max iterations ({max_iterations}) reached")
 
         final_content = response.content
+        logger.info(f"Final content length: {len(final_content) if final_content else 0}")
+        logger.debug(f"Final content preview: {final_content[:500] if final_content else 'EMPTY'}")
+
+        if not final_content or not final_content.strip():
+            raise ValueError("LLM returned empty response after all iterations")
 
         try:
-            quest = json.loads(final_content)
+            # Try to extract JSON if it's wrapped in markdown code blocks
+            content_to_parse = final_content.strip()
+            if content_to_parse.startswith("```"):
+                # Extract content between ```json and ``` or ``` and ```
+                lines = content_to_parse.split("\n")
+                content_to_parse = "\n".join(lines[1:-1])  # Remove first and last lines
+
+            quest = json.loads(content_to_parse)
 
             logger.info("Successfully generated quest")
             return quest
