@@ -232,8 +232,16 @@ Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "
             logger.error(f"Response content: {final_content}")
             raise ValueError(f"LLM did not return valid JSON: {e}")
 
-    async def generate_quest(self) -> dict[str, Any]:
+    async def generate_quest(self, factions: list[dict[str, Any]] | None = None) -> dict[str, Any]:
         """Generate a quest for worldbuilding.
+
+        Args:
+            factions: Optional list of factions to base quest characters on.
+            Each faction should have:
+                - name: The faction's name
+                - symbol: Description of the faction's symbol or emblem
+                - values: Core beliefs and values of the faction
+                - soundtrack_vibe: Musical genre/style that represents the faction
 
         Returns:
             Quest dictionary with structure:
@@ -250,7 +258,43 @@ Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "
         system_prompt = await self._build_system_prompt()
         langchain_tools = await self._get_langchain_tools()
 
-        user_message = """Generate a unique quest for a tabletop RPG.
+        if factions:
+            factions_description = "\n\n".join(
+                [
+                    f"Faction: {faction['name']}\n"
+                    f"- Symbol: {faction['symbol']}\n"
+                    f"- Values: {faction['values']}\n"
+                    f"- Soundtrack Vibe: {faction['soundtrack_vibe']}"
+                    for faction in factions
+                ]
+            )
+
+            user_message = f"""Generate a unique quest for a tabletop RPG.
+
+The quest should have:
+- title: A compelling quest title
+- quest_brief: Brief description of the quest (2-3 sentences)
+- npcs: A simple string describing the key NPCs involved in the quest
+- conflict: The main conflict or challenge
+- location: Where the quest takes place
+
+IMPORTANT: The main characters (NPCs) of this quest should be based on the following factions:
+
+{factions_description}
+
+Create NPCs that represent these factions, incorporating their values, symbols, and characteristics.
+The conflict should involve tensions or interactions between these factions.
+
+You should use ONLY the fetch_story tool to get random story elements to inspire your quest.
+
+Respond with ONLY a JSON object, no additional text.
+The npcs field should be a STRING describing the NPCs, not an array of objects.
+Format:
+    {{"title": "...", "quest_brief": "...", "npcs": "Description of NPCs as a string",
+    "conflict": "...", "location": "..."}}
+"""
+        else:
+            user_message = """Generate a unique quest for a tabletop RPG.
 
 The quest should have:
 - title: A compelling quest title
