@@ -8,7 +8,6 @@ from lore_engine.mcp_client.client import MCPClient
 from lore_engine.models.responses import FactionResponse, FactionsResponse
 from lore_engine.services import create_lore_generator
 
-# Create router for factions endpoints
 router = APIRouter(prefix="/factions", tags=["factions"])
 
 

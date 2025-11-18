@@ -29,13 +29,8 @@ async def generate_quest(
     try:
         logger.info("Received request to generate quest")
 
-        # Create LoreGenerator instance
         lore_generator = await create_lore_generator(mcp_client)
-
-        # Generate quest
         quest_data = await lore_generator.generate_quest()
-
-        # Convert to response model
         quest_response = QuestResponse(**quest_data)
 
         logger.info("Successfully generated quest")

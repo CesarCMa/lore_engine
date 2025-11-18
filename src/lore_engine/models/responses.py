@@ -42,10 +42,8 @@ class QuestResponse(BaseModel):
     def validate_npcs(cls, v: Any) -> list[NPC] | str:
         """Convert NPCs to proper format if needed."""
         if isinstance(v, str):
-            # If it's a string, return as-is
             return v
         elif isinstance(v, list):
-            # If it's a list, validate each item
             npcs = []
             for npc in v:
                 if isinstance(npc, dict):
@@ -53,9 +51,7 @@ class QuestResponse(BaseModel):
                 elif isinstance(npc, NPC):
                     npcs.append(npc)
                 else:
-                    # If we can't parse it, convert to string
                     return str(v)
             return npcs
         else:
-            # Convert anything else to string
             return str(v)

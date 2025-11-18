@@ -33,17 +33,8 @@ class MCPClient:
         try:
             logger.info(f"Connecting to MCP server at {server_script_path}")
 
-            # Convert file path to module path if needed
-            # e.g., "src/lore_engine/mcp_server/server.py" -> "lore_engine.mcp_server.server"
-            if server_script_path.endswith(".py"):
-                module_path = (
-                    server_script_path.replace("/", ".").replace("src.", "").replace(".py", "")
-                )
-            else:
-                module_path = server_script_path
-
             server_params = StdioServerParameters(
-                command="poetry", args=["run", "python", "-m", module_path]
+                command="poetry", args=["run", "python", "-m", server_script_path]
             )
             self.exit_stack = AsyncExitStack()
             stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
