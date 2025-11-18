@@ -173,7 +173,8 @@ Each faction should have:
 - soundtrack_vibe: Musical genre/style that represents them
 
 All the faction info should be based on a random genre or theme you can get by using the
-fetch_genre tool.
+fetch_genre tool. You are ONLY allowed to use that tool to get inspiration for the factions. You
+perform  a UNIQUE call to the fetch_genre tool for EACH faction you generate.
 
 Respond with ONLY a JSON array of faction objects, no additional text.
 Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "..."}}]"""
@@ -194,7 +195,6 @@ Format: [{{"name": "...", "symbol": "...", "values": "...", "soundtrack_vibe": "
             if hasattr(response, "tool_calls") and response.tool_calls:
                 logger.info(f"LLM requested {len(response.tool_calls)} tool call(s)")
                 messages = await self._execute_tool_calls(messages, response.tool_calls)
-                # Continue loop to get final response after tool execution
             else:
                 # No more tool calls, this should be the final response
                 logger.info("LLM returned final response (no tool calls)")
@@ -259,7 +259,7 @@ The quest should have:
 - conflict: The main conflict or challenge
 - location: Where the quest takes place
 
-You should use the fetch_story tool to get random story elements to inspire your quest.
+You should use ONLY the fetch_story tool to get random story elements to inspire your quest.
 
 Respond with ONLY a JSON object, no additional text.
 Format:
