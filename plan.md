@@ -55,7 +55,7 @@ lore_engine/
 
 ---
 
-## Phase 2: Frontend Scaffolding
+~~## Phase 2: Frontend Scaffolding~~
 
 ### 2.1 Initialize Vite + React Project (JavaScript)
 ```bash
@@ -129,7 +129,7 @@ frontend/src/
 
 ---
 
-## Phase 3: Fantasy Theme Style Guide & Design System
+~~## Phase 3: Fantasy Theme Style Guide & Design System~~
 
 ### 3.1 Create `docs/STYLE_GUIDE.md`
 
