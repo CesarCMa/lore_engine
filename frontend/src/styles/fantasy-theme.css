@@ -1,0 +1,53 @@
+/* Corner flourishes using pseudo-elements */
+.ornate-card::before,
+.ornate-card::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.ornate-card::before {
+  top: -2px;
+  left: -2px;
+  border-top: 3px solid #D4AF37;
+  border-left: 3px solid #D4AF37;
+  border-top-left-radius: 8px;
+}
+
+.ornate-card::after {
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 3px solid #D4AF37;
+  border-right: 3px solid #D4AF37;
+  border-bottom-right-radius: 8px;
+}
+
+/* Scroll dividers */
+.scroll-divider {
+  height: 2px;
+  background: linear-gradient(to right, transparent, #D4AF37, transparent);
+  position: relative;
+  margin: 1rem 0;
+}
+
+/* Paper texture effect */
+.parchment-texture {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.03) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 3px
+    );
+}

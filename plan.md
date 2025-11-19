@@ -5,7 +5,7 @@ Refactor the lore_engine repository into a simple monorepo with `backend/` and `
 
 ---
 
-## Phase 1: Monorepo Restructuring
+~~## Phase 1: Monorepo Restructuring~~
 
 ### 1.1 Create New Directory Structure
 ```
